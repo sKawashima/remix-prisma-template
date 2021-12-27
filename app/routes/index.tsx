@@ -1,5 +1,12 @@
-import { Link, LoaderFunction, useLoaderData } from 'remix'
-import { getUser } from '~/utils/session.server'
+import {
+  ActionFunction,
+  Form,
+  Link,
+  LoaderFunction,
+  redirect,
+  useLoaderData,
+} from 'remix'
+import { getUser, logout } from '~/utils/session.server'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUser(request)
@@ -9,6 +16,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   return data
+}
+
+export const action: ActionFunction = async ({ request }) => {
+  return await logout(request)
 }
 
 export default function Index() {
@@ -44,6 +55,11 @@ export default function Index() {
         </li>
         <li>
           <Link to="/register">Register</Link>
+        </li>
+        <li>
+          <Form method="post">
+            <button type="submit">Logout</button>
+          </Form>
         </li>
       </ul>
     </div>
