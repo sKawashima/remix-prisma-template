@@ -4,11 +4,16 @@
 
 ## Development
 
-.env setting
+Sample .env setting
 
 ```env
 DATABASE_URL="postgresql://admin:password@localhost:5432/testdb"
+SESSION_SECRET="s3cr3t"
 ```
+
+Session setting
+
+- app/utils/session.server.ts
 
 From your terminal:
 
