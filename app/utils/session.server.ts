@@ -69,6 +69,18 @@ export const register = async ({ username, password }: LoginForm) => {
   })
 }
 
+export const login = async ({ username, password }: LoginForm) => {
+  const user = await prisma.user.findUnique({
+    where: { username },
+  })
+  if (!user) return null
+
+  const isCorrectPassword = await bcrypt.compare(password, user.passwordHash)
+  if (!isCorrectPassword) return null
+
+  return user
+}
+
 export const logout = async (request: Request) => {
   const session = await getUserSession(request)
   return redirect('/', {

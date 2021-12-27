@@ -57,6 +57,9 @@ export default function Index() {
           <Link to="/register">Register</Link>
         </li>
         <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
           <Form method="post">
             <button type="submit">Logout</button>
           </Form>
