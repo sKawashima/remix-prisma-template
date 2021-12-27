@@ -1,8 +1,14 @@
-# Welcome to Remix!
+# Remix Prisma Template
 
 - [Remix Docs](https://remix.run/docs)
 
 ## Development
+
+.env setting
+
+```env
+DATABASE_URL="postgresql://admin:password@localhost:5432/testdb"
+```
 
 From your terminal:
 
