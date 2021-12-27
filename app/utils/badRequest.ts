@@ -1,3 +1,3 @@
-import { json } from "remix";
+import { json } from 'remix'
 
-export const badRequest = (data: object) => json(data, {status: 400})
+export const badRequest = (data: object) => json(data, { status: 400 })
