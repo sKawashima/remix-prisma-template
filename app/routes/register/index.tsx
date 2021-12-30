@@ -1,11 +1,5 @@
 import { useEffect } from 'react'
-import {
-  ActionFunction,
-  Form,
-  json,
-  useActionData,
-  useSearchParams,
-} from 'remix'
+import { ActionFunction, Form, useActionData, useSearchParams } from 'remix'
 import { badRequest } from '~/utils/badRequest'
 import { prisma } from '~/utils/prisma'
 import { createUserSession, register } from '~/utils/session.server'
