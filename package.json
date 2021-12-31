@@ -5,7 +5,7 @@
   "license": "",
   "scripts": {
     "build": "remix build",
-    "dev": "npm-run-all -p dev:*",
+    "dev": "npm-run-all -p dev:* --print-label",
     "dev:remix": "remix dev",
     "dev:db": "docker compose up",
     "postinstall": "remix setup node",
