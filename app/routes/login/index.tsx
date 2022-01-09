@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react'
-import { ActionFunction, Form, useActionData, useSearchParams } from 'remix'
+import {
+  ActionFunction,
+  Form,
+  Link,
+  useActionData,
+  useSearchParams,
+} from 'remix'
 import { badRequest } from '~/utils/badRequest'
 import { createUserSession, login } from '~/utils/session.server'
 import { validatePassword, validateUsername } from '~/utils/validateUser'
@@ -69,6 +75,7 @@ export default () => {
         />
         <button type="submit">login</button>
       </Form>
+      or <Link to="/register">Register</Link>
     </div>
   )
 }

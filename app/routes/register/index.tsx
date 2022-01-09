@@ -88,6 +88,7 @@ export default () => {
         />
         <button type="submit">register</button>
       </Form>
+      or <Link to="/login">Login</Link>
     </div>
   )
 }
