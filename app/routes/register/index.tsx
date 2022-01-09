@@ -9,6 +9,7 @@ import {
 import { badRequest } from '~/utils/badRequest'
 import { prisma } from '~/utils/prisma'
 import { createUserSession, register } from '~/utils/session.server'
+import { validatePassword, validateUsername } from '~/utils/validateUser'
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
@@ -40,16 +41,6 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   return createUserSession(user.id, redirectTo)
-}
-
-const validateUsername = (username: string) => {
-  if (username.length < 4) return 'username must be at least 4 characters long'
-  else return undefined
-}
-
-const validatePassword = (password: string) => {
-  if (password.length < 8) return 'password must be at least 8 characters long'
-  else return undefined
 }
 
 export default () => {
