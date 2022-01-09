@@ -7,8 +7,6 @@ import { createUserSession, register } from '~/utils/session.server'
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
 
-  console.log(formData)
-
   const username = formData.get('username')
   const password = formData.get('password')
   const redirectTo = formData.get('redirectTo') || '/'
