@@ -1,5 +1,11 @@
-import { useEffect } from 'react'
-import { ActionFunction, Form, useActionData, useSearchParams } from 'remix'
+import { useEffect, useState } from 'react'
+import {
+  ActionFunction,
+  Form,
+  Link,
+  useActionData,
+  useSearchParams,
+} from 'remix'
 import { badRequest } from '~/utils/badRequest'
 import { prisma } from '~/utils/prisma'
 import { createUserSession, register } from '~/utils/session.server'
@@ -36,9 +42,21 @@ export const action: ActionFunction = async ({ request }) => {
   return createUserSession(user.id, redirectTo)
 }
 
+const validateUsername = (username: string) => {
+  if (username.length < 4) return 'username must be at least 4 characters long'
+  else return undefined
+}
+
+const validatePassword = (password: string) => {
+  if (password.length < 8) return 'password must be at least 8 characters long'
+  else return undefined
+}
+
 export default () => {
   const errors = useActionData()
   const [searchParams] = useSearchParams()
+  const [usernameError, setUsernameError] = useState<string | undefined>()
+  const [passwordError, setPasswordError] = useState<string | undefined>()
 
   useEffect(() => {
     if (errors) {
@@ -50,8 +68,28 @@ export default () => {
     <div>
       <h1>register</h1>
       <Form method="post">
-        <input type="text" name="username" placeholder="username" />
-        <input type="password" name="password" placeholder="password" />
+        <div>
+          <input
+            type="text"
+            name="username"
+            placeholder="username"
+            onChange={(event) => {
+              setUsernameError(validateUsername(event.target.value))
+            }}
+          />
+          {usernameError && usernameError}
+        </div>
+        <div>
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            onChange={(event) => {
+              setPasswordError(validatePassword(event.target.value))
+            }}
+          />
+          {passwordError && passwordError}
+        </div>
         <input
           type="hidden"
           name="redirectTo"
