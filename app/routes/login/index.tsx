@@ -1,7 +1,14 @@
-import { useEffect } from 'react'
-import { ActionFunction, Form, useActionData, useSearchParams } from 'remix'
+import { useEffect, useState } from 'react'
+import {
+  ActionFunction,
+  Form,
+  Link,
+  useActionData,
+  useSearchParams,
+} from 'remix'
 import { badRequest } from '~/utils/badRequest'
 import { createUserSession, login } from '~/utils/session.server'
+import { validatePassword, validateUsername } from '~/utils/validateUser'
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
@@ -26,6 +33,8 @@ export const action: ActionFunction = async ({ request }) => {
 export default () => {
   const errors = useActionData()
   const [searchParams] = useSearchParams()
+  const [usernameError, setUsernameError] = useState<string | undefined>()
+  const [passwordError, setPasswordError] = useState<string | undefined>()
 
   useEffect(() => {
     if (errors) {
@@ -37,8 +46,28 @@ export default () => {
     <div>
       <h1>register</h1>
       <Form method="post">
-        <input type="text" name="username" placeholder="username" />
-        <input type="password" name="password" placeholder="password" />
+        <div>
+          <input
+            type="text"
+            name="username"
+            placeholder="username"
+            onChange={(event) => {
+              setUsernameError(validateUsername(event.target.value))
+            }}
+          />
+          {usernameError && usernameError}
+        </div>
+        <div>
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            onChange={(event) => {
+              setPasswordError(validatePassword(event.target.value))
+            }}
+          />
+          {passwordError && passwordError}
+        </div>
         <input
           type="hidden"
           name="redirectTo"
@@ -46,6 +75,7 @@ export default () => {
         />
         <button type="submit">login</button>
       </Form>
+      or <Link to="/register">Register</Link>
     </div>
   )
 }
