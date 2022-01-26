@@ -1,10 +1,4 @@
-import {
-  ActionFunction,
-  Form,
-  Link,
-  LoaderFunction,
-  useLoaderData,
-} from 'remix'
+import { ActionFunction, Link, LoaderFunction, useLoaderData } from 'remix'
 import { getUser, logout } from '~/utils/session.server'
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -30,9 +24,9 @@ export default function Index() {
       {data.user ? (
         <p>
           user: {data.user.username}{' '}
-          <Form method="post">
+          <form action="/logout" method="post">
             <button type="submit">Logout</button>
-          </Form>
+          </form>
         </p>
       ) : (
         <p>
